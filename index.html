@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Ferris Wheel</title>
+<style>
+    canvas {
+        display: block;
+        margin: 40px auto;
+        background: white;
+        border: 0.5px dashed lightgray;
+        width: 600px;
+        height: 600px;
+    }
+    .controls {
+        text-align: center;
+    }
+    .controls button {
+        font-size: 18px;
+        padding: 0;
+        width: 26px;
+        height: 26px;
+        margin: 4px;
+    }
+</style>
+
+<!-- TODO: Add vertex shader for Position and Color -->
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec3 a_position; 
+in vec4 a_color;
+out vec4 v_color; 
+uniform mat4 u_matrix;
+
+void main() {
+    gl_Position = u_matrix * vec4(a_position, 1.0);
+    v_color = a_color; 
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+in vec4 v_color;
+out vec4 f_color;
+
+void
+main()
+{
+    f_color = v_color;
+}
+</script>
+
+<script type="text/javascript" src="./Common/initShaders.js"></script>
+<script type="text/javascript" src="./Common/MVnew.js"></script>
+<script type="text/javascript" src="project4.js"></script>
+</head>
+
+<body>
+
+<canvas id="gl-canvas" width="600" height="600">
+    Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+<div class="controls">
+    <button id="prevCar">&#8635;</button>
+    Select Car to Rotate
+    <button id="nextCar">&#8634;</button>
+    <br/>
+    <button id="panLeft">&#8592;</button>
+    Pan the Camera
+    <button id="panRight">&#8594;</button>
+    <br/>
+    <button id="panStop">⏸</button>
+    Pause/Reset the Camera
+    <button id="panReset">⏹</button>
+</div>
+</body>
+</html>
